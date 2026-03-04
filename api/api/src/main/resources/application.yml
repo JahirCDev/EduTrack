@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/edutrack
+    username: ${DB_USER:edutrack_user}
+    password: ${DB_PASS:admin}
+  jpa:
+    hibernate:
+      ddl-auto: update   # Hibernate crea y actualiza el schema automáticamente
+    show-sql: true       # útil durante el desarrollo
+    properties:
+      hibernate.format_sql: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:clave_local_de_desarrollo_minimo_256_bits}
+    access-expiration: 3600000     # 1 hora en ms
+    refresh-expiration: 604800000  # 7 días en ms
+
+springdoc:
+  swagger-ui.path: /swagger-ui.html
