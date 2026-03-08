@@ -28,6 +28,7 @@ public class Group {
   @Column(nullable = false)
   private String name;
 
+  @Column(nullable = false)
   private String subject;
 
   @ManyToOne
