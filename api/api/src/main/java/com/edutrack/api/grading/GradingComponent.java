@@ -31,7 +31,7 @@ public class GradingComponent {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
+  @Column(precision = 5, scale = 2, nullable = false)
   private BigDecimal percentage;
 
   private Integer sortOrder;
