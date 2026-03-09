@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Data;
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name="grading_components")
+@Table(name="grade_components")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +27,7 @@ public class GradingComponent {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "grading_scheme_id", nullable = false, unique = true)
+  @JoinColumn(name = "grading_scheme_id", nullable = false)
   private GradingScheme gradingScheme;
 
   @Column(nullable = false)
@@ -33,6 +35,10 @@ public class GradingComponent {
 
   @Column(precision = 5, scale = 2, nullable = false)
   private BigDecimal percentage;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private ComponentType type;
 
   private Integer sortOrder;
 }
