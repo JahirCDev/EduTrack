@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name="attendace_records")
+@Table(name="attendance_records")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,11 +27,11 @@ public class AttendanceRecord {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "session_id", nullable = false, unique = true)
-  private AttendanceSession sesion;
+  @JoinColumn(name = "session_id", nullable = false)
+  private AttendanceSession session;
 
   @ManyToOne
-  @JoinColumn(name = "student_id", nullable = false, unique = true)
+  @JoinColumn(name = "student_id", nullable = false)
   private Student student;
 
   @Enumerated(EnumType.STRING)

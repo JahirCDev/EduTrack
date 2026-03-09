@@ -4,9 +4,9 @@ import com.edutrack.api.group.Group;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Data;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name="attendace_sessions")
+@Table(name="attendance_sessions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,14 +26,11 @@ public class AttendanceSession {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "group_id", nullable = false, unique = true)
+  @JoinColumn(name = "group_id", nullable = false)
   private Group group;
 
+  @Column(nullable = false)
   private LocalDate sessionDate;
-  @PrePersist
-  protected void onCreate() {
-    this.sessionDate = LocalDate.now();
-  }
 
   private String notes;
 }
