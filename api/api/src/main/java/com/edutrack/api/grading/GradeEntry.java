@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="grading_entries")
+@Table(name="grade_entries")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,11 +28,11 @@ public class GradeEntry {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "student_id", nullable = false, unique = true)
+  @JoinColumn(name = "student_id", nullable = false)
   private Student student;
 
   @ManyToOne
-  @JoinColumn(name = "component_id", nullable = false, unique = true)
+  @JoinColumn(name = "component_id", nullable = false)
   private GradingComponent component;
 
   @Column(precision = 5, scale = 2, nullable = false)
