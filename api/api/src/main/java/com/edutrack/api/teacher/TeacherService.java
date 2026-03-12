@@ -1,12 +1,15 @@
 package com.edutrack.api.teacher;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class TeacherService {
+public class TeacherService implements UserDetailsService {
   private final TeacherRepository teacherRepository;
 
   public TeacherResponse create(TeacherRequest request){
@@ -84,5 +87,10 @@ public class TeacherService {
     Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
     teacher.setActive(false);
     teacherRepository.save(teacher);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) {
+    return teacherRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Profesor no encontrado"));
   }
 }
