@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
@@ -11,13 +12,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TeacherService implements UserDetailsService {
   private final TeacherRepository teacherRepository;
+  private final PasswordEncoder passwordEncoder;
 
   public TeacherResponse create(TeacherRequest request){
     Teacher teacher = Teacher.builder()
     .firstName(request.getFirstName())
     .lastName(request.getLastName())
     .email(request.getEmail())
-    .password(request.getPassword())
+    .password(passwordEncoder.encode(request.getPassword()))
     .role(request.getRole())
     .active(true)
     .build();
