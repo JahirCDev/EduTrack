@@ -1,6 +1,7 @@
 package com.edutrack.api.teacher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +37,9 @@ public class TeacherController {
       return teacherService.update(id, request);
   }
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{id}")
   public void delete(@PathVariable Long id){
     teacherService.delete(id);
   }
-
 }
