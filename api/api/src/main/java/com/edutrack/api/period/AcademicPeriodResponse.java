@@ -1,10 +1,8 @@
 package com.edutrack.api.period;
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 
 @Data
