@@ -2,7 +2,11 @@
   import lombok.Builder;
   import lombok.Data;
   import lombok.NoArgsConstructor;
-  import lombok.AllArgsConstructor;
+
+import com.edutrack.api.summaries.PeriodSummary;
+import com.edutrack.api.summaries.TeacherSummary;
+
+import lombok.AllArgsConstructor;
 
   @Data
   @Builder

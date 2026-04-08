@@ -40,5 +40,4 @@ public class GradingComponent {
   @Column(nullable = false)
   private ComponentType type;
 
-  private Integer sortOrder;
 }

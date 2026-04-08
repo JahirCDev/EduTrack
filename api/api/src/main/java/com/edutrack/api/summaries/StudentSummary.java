@@ -1,4 +1,4 @@
-package com.edutrack.api.enrollment;
+package com.edutrack.api.summaries;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -8,8 +8,9 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupSummary {
+public class StudentSummary {
   private Long id;
-  private String name;  
-  private String teacherName;
+  private String firstName;
+  private String lastName;
+  private String email;
 }

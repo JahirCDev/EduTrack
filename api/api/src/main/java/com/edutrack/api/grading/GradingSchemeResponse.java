@@ -1,9 +1,6 @@
-package com.edutrack.api.enrollment;
-import java.time.LocalDate;
-
+package com.edutrack.api.grading;
 import com.edutrack.api.summaries.GroupSummary;
-import com.edutrack.api.summaries.StudentSummary;
-
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +10,9 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnrollmentResponse {
+public class GradingSchemeResponse {
   private Long id;
-  private StudentSummary student;
   private GroupSummary group;
-  private EnrollmentStatus status;
-  private LocalDate enrolledAt;
+  private List<GradingComponentResponse> components;
+  private boolean active;
 }

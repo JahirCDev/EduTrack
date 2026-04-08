@@ -6,6 +6,8 @@ import com.edutrack.api.group.Group;
 import com.edutrack.api.group.GroupRepository;
 import com.edutrack.api.student.Student;
 import com.edutrack.api.student.StudentRepository;
+import com.edutrack.api.summaries.GroupSummary;
+import com.edutrack.api.summaries.StudentSummary;
 import lombok.RequiredArgsConstructor;
 
 @Service
