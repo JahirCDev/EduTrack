@@ -1,5 +1,4 @@
 package com.edutrack.api.config;
-import org.springframework.http.HttpMethod; 
 import com.edutrack.api.teacher.TeacherService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Lazy;
@@ -19,7 +18,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
     private final JwtAuthFilter jwtAuthFilter;
 
     public SecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter) {
@@ -32,7 +30,6 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll() // login público
-                .requestMatchers(HttpMethod.POST, "/api/teachers").hasAuthority("ADMIN") // Solo el usuario con rol de ADMIN puede crear usuarios teachers
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // swagger público
                 .anyRequest().authenticated() // todo lo demás requiere token
             )

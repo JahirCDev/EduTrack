@@ -1,7 +1,7 @@
 package com.edutrack.api.teacher;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
+import java.util.Collection;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;

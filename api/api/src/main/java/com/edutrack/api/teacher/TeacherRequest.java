@@ -25,5 +25,7 @@ public class TeacherRequest {
 
   @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 carácteres")
   private String password;
+
+  @NotBlank(message = "El rol del usuario es obligatorio")
   private Role role;
 }

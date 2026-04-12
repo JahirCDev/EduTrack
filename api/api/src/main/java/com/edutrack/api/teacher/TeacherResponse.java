@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class TeacherResponse {
   private Long id;
   private String firstName;
