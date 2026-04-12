@@ -1,11 +1,9 @@
-  package com.edutrack.api.group;
-  import lombok.Builder;
-  import lombok.Data;
-  import lombok.NoArgsConstructor;
-
+package com.edutrack.api.group;
 import com.edutrack.api.summaries.PeriodSummary;
 import com.edutrack.api.summaries.TeacherSummary;
-
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
   @Data
