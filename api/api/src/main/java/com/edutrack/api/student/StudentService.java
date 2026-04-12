@@ -1,8 +1,11 @@
 package com.edutrack.api.student;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+<<<<<<< Updated upstream
+=======
+import lombok.RequiredArgsConstructor;
+>>>>>>> Stashed changes
 
 @Service
 @RequiredArgsConstructor
@@ -22,26 +25,17 @@ public class StudentService{
   }
 
   public StudentResponse create(StudentRequest request){
-    Student student = Student.builder()
-    .firstName(request.getFirstName())
-    .lastName(request.getLastName())
-    .code(request.getCode())
-    .email(request.getEmail())
-    .photoUrl(request.getPhotoUrl())
-    .active(true)
-    .build();
+    Student student = studentRepository.save(Student.builder()
+      .firstName(request.getFirstName())
+      .lastName(request.getLastName())
+      .code(request.getCode())
+      .email(request.getEmail())
+      .photoUrl(request.getPhotoUrl())
+      .active(true)
+      .build()
+    );
 
-    Student saved = studentRepository.save(student);
-
-    return StudentResponse.builder()
-    .id(saved.getId())
-    .firstName(saved.getFirstName())
-    .lastName(saved.getLastName())
-    .email(saved.getEmail())
-    .code(saved.getCode())
-    .photoUrl(saved.getPhotoUrl())
-    .active(student.getActive())
-    .build();
+    return toResponse(student);
   }
 
   public StudentResponse findById(Long id){
@@ -61,18 +55,7 @@ public class StudentService{
     student.setLastName(request.getLastName());
     student.setEmail(request.getEmail());
     student.setPhotoUrl(request.getPhotoUrl());
-
-    Student update = studentRepository.save(student);
-
-    return StudentResponse.builder()
-    .id(update.getId())
-    .firstName(update.getFirstName())
-    .lastName(update.getLastName())
-    .email(update.getEmail())
-    .code(update.getCode())
-    .photoUrl(update.getPhotoUrl())
-    .active(update.getActive())
-    .build();
+    return toResponse(studentRepository.save(student));
   }
 
   public void delete(Long id) {
