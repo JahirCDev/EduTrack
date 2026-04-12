@@ -8,10 +8,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Component
 @RequiredArgsConstructor
 public class PeriodScheduler {
-
     private final AcademicPeriodRepository academicPeriodRepository;
 
-    @Scheduled(cron = "0 0 0 * * *") // se ejecuta cada día a medianoche
+    @Scheduled(cron = "0 0 0 * * *")  // se ejecuta cada día a medianoche
     @Transactional
     public void updatePeriodStatus() {
         LocalDate today = LocalDate.now();

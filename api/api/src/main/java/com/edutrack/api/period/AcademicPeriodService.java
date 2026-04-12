@@ -1,89 +1,60 @@
 package com.edutrack.api.period;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
 public class AcademicPeriodService {
   private final AcademicPeriodRepository academicPeriodRepository;
 
+  private AcademicPeriodResponse toResponse(AcademicPeriod academicPeriod) {
+    return AcademicPeriodResponse.builder()
+    .id(academicPeriod.getId())
+    .name(academicPeriod.getName())
+    .startDate(academicPeriod.getStartDate())
+    .endDate(academicPeriod.getEndDate())
+    .active(academicPeriod.getActive())
+    .build();
+  }
+
   @Transactional
   public AcademicPeriodResponse create(AcademicPeriodRequest request){
-
-    if(academicPeriodRepository.existsOverlappingPeriod(
-      request.getStartDate(), request.getEndDate()
-    )) {
+    if(academicPeriodRepository.existsOverlappingPeriod(request.getStartDate(), request.getEndDate())) {
       throw new RuntimeException("Ya hay un período activo en ese rango de fechas");
     }
 
-    AcademicPeriod academicPeriod = AcademicPeriod.builder()
-    .name(request.getName())
-    .startDate(request.getStartDate())
-    .endDate(request.getEndDate())
-    .active(false)
-    .build();
+    AcademicPeriod academicPeriod = academicPeriodRepository.save(AcademicPeriod.builder()
+      .name(request.getName())
+      .startDate(request.getStartDate())
+      .endDate(request.getEndDate())
+      .active(false)
+      .build()
+    );
 
-    AcademicPeriod saved = academicPeriodRepository.save(academicPeriod);
-
-    return AcademicPeriodResponse.builder()
-      .id(saved.getId())
-      .name(saved.getName())
-      .startDate(saved.getStartDate())
-      .endDate(saved.getEndDate())
-      .active(saved.getActive())
-      .build();
+    return toResponse(academicPeriod);
   }
 
   public AcademicPeriodResponse findById(Long id) {
     AcademicPeriod academicPeriod = academicPeriodRepository.findById(id).orElseThrow(() -> new RuntimeException("Período no encontrado"));
-
-    AcademicPeriodResponse response = AcademicPeriodResponse.builder()
-      .id(academicPeriod.getId())
-      .name(academicPeriod.getName())
-      .startDate(academicPeriod.getStartDate())
-      .endDate(academicPeriod.getEndDate())
-      .active(academicPeriod.getActive())
-      .build();
-
-    return response;
+    return toResponse(academicPeriod);
   }
 
   public List<AcademicPeriodResponse> findAll() {
     List<AcademicPeriod> academicPeriods = academicPeriodRepository.findAll();
-    return academicPeriods.stream()
-                   .map(academicPeriod -> AcademicPeriodResponse.builder()
-                    .id(academicPeriod.getId())
-                    .name(academicPeriod.getName())
-                    .startDate(academicPeriod.getStartDate())
-                    .endDate(academicPeriod.getEndDate())
-                    .active(academicPeriod.getActive())
-                    .build()
-                  )
-                   .collect(Collectors.toList());
-    
+    return academicPeriods.stream().map(this::toResponse).collect(Collectors.toList());
   }  
 
-
+  @Transactional
   public AcademicPeriodResponse update(Long id, AcademicPeriodRequest request){
     AcademicPeriod academicPeriod = academicPeriodRepository.findById(id).orElseThrow(() -> new RuntimeException("Período no encontrado"));
 
     academicPeriod.setName(request.getName());
     academicPeriod.setStartDate(request.getStartDate());
     academicPeriod.setEndDate(request.getEndDate());
-
-    AcademicPeriod update = academicPeriodRepository.save(academicPeriod);
-
-    return AcademicPeriodResponse.builder()
-    .id(update.getId())
-    .name(update.getName())
-    .startDate(update.getStartDate())
-    .endDate(update.getEndDate())
-    .active(update.getActive())
-    .build();
+    return toResponse(academicPeriodRepository.save(academicPeriod));
   }
 
   public void delete(Long id) {
@@ -94,16 +65,6 @@ public class AcademicPeriodService {
 
   public AcademicPeriodResponse findActive(){
     AcademicPeriod academicPeriod = academicPeriodRepository.findFirstByActiveTrueOrderByStartDateDesc().orElseThrow(() -> new RuntimeException("Período inactivo"));
-
-    AcademicPeriodResponse response = AcademicPeriodResponse.builder()
-      .id(academicPeriod.getId())
-      .name(academicPeriod.getName())
-      .startDate(academicPeriod.getStartDate())
-      .endDate(academicPeriod.getEndDate())
-      .active(academicPeriod.getActive())
-      .build();
-
-    return response;
+    return toResponse(academicPeriod);
   }
-
 } 

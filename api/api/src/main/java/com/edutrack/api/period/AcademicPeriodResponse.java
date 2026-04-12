@@ -1,15 +1,14 @@
 package com.edutrack.api.period;
-import java.time.LocalDate;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class AcademicPeriodResponse {
   private Long id;
   private String name;
