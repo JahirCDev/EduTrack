@@ -41,4 +41,7 @@ public class GradeEntry {
   @CreationTimestamp
   @Column(name = "recorded_at", nullable = false, updatable = false)
   private LocalDateTime recordedAt;
+
+  @Column (columnDefinition = "BOOLEAN DEFAULT true")
+  private Boolean active;
 }

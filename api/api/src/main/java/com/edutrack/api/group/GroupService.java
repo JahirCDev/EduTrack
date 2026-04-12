@@ -3,6 +3,9 @@ import com.edutrack.api.teacher.Teacher;
 import com.edutrack.api.period.AcademicPeriod;
 import com.edutrack.api.teacher.TeacherRepository;
 import com.edutrack.api.period.AcademicPeriodRepository;
+import com.edutrack.api.summaries.PeriodSummary;
+import com.edutrack.api.summaries.TeacherSummary;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,6 @@
-package com.edutrack.api.group;
+package com.edutrack.api.summaries;
+import com.edutrack.api.grading.ComponentType;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,9 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PeriodSummary {
+public class ComponentSummary {
   private Long id;
   private String name;
+  private BigDecimal percentage;
+  private ComponentType type;
 }
