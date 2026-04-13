@@ -1,16 +1,13 @@
 package com.edutrack.api.enrollment;
 import com.edutrack.api.group.Group;
-import com.edutrack.api.group.GroupRepository;
 import com.edutrack.api.student.Student;
+import com.edutrack.api.group.GroupRepository;
 import com.edutrack.api.student.StudentRepository;
-<<<<<<< Updated upstream
-=======
 import com.edutrack.api.summaries.GroupSummary;
 import com.edutrack.api.summaries.StudentSummary;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
->>>>>>> Stashed changes
 import lombok.RequiredArgsConstructor;
 
 @Service
