@@ -17,6 +17,7 @@ import java.util.List;
 public class TeacherController {
   private final TeacherService teacherService;
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
   public TeacherResponse create(@RequestBody TeacherRequest request) {
     return teacherService.create(request);
@@ -32,9 +33,10 @@ public class TeacherController {
     return teacherService.findById(id);
   }
 
+  @PreAuthorize("hasAuthority('ADMIN') or @teacherSecurity.isSelf(#id)")
   @PutMapping("/{id}")
   public TeacherResponse update(@PathVariable Long id, @RequestBody TeacherRequest request) {      
-      return teacherService.update(id, request);
+    return teacherService.update(id, request);
   }
 
   @PreAuthorize("hasAuthority('ADMIN')")
