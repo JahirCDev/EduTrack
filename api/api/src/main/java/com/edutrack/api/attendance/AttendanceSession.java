@@ -1,6 +1,6 @@
 package com.edutrack.api.attendance;
-import java.time.LocalDate;
 import com.edutrack.api.group.Group;
+import java.time.LocalDate;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -33,4 +33,7 @@ public class AttendanceSession {
   private LocalDate sessionDate;
 
   private String notes;
+
+  @Column (columnDefinition = "BOOLEAN DEFAULT true")
+  private Boolean active;
 }
