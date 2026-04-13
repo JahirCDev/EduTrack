@@ -1,13 +1,13 @@
 package com.edutrack.api.enrollment;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 import com.edutrack.api.group.Group;
-import com.edutrack.api.group.GroupRepository;
 import com.edutrack.api.student.Student;
+import com.edutrack.api.group.GroupRepository;
 import com.edutrack.api.student.StudentRepository;
 import com.edutrack.api.summaries.GroupSummary;
 import com.edutrack.api.summaries.StudentSummary;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -43,14 +43,13 @@ public class EnrollmentService {
 
     Group group = groupRepository.findById(request.getGroupId()).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
-    Enrollment enrollment = Enrollment.builder()
-    .student(student)
-    .group(group)
-    .status(request.getStatus())
-    .build();
-
-    Enrollment saved = enrollmentRepository.save(enrollment);
-    return toResponse(saved);
+    Enrollment enrollment = enrollmentRepository.save(Enrollment.builder()
+      .student(student)
+      .group(group)
+      .status(request.getStatus())
+      .build()
+    );
+    return toResponse(enrollment);
   }
 
   public EnrollmentResponse findById(Long id) {
@@ -65,17 +64,13 @@ public class EnrollmentService {
 
   public EnrollmentResponse update(Long id, EnrollmentRequest request) {
     Enrollment enrollment = enrollmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Registro no encontrado"));
-
     Student student = studentRepository.findById(request.getStudentId()).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
-
     Group group = groupRepository.findById(request.getGroupId()).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
     enrollment.setGroup(group);
     enrollment.setStudent(student);
     enrollment.setStatus(request.getStatus());
-
-    Enrollment update = enrollmentRepository.save(enrollment);
-    return toResponse(update);
+    return toResponse(enrollmentRepository.save(enrollment));
   }
 
   public void delete(Long id){
