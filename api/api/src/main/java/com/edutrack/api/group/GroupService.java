@@ -5,7 +5,6 @@ import com.edutrack.api.teacher.TeacherRepository;
 import com.edutrack.api.period.AcademicPeriodRepository;
 import com.edutrack.api.summaries.PeriodSummary;
 import com.edutrack.api.summaries.TeacherSummary;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -40,17 +39,15 @@ public class GroupService {
     Teacher teacher = teacherRepository.findById(request.getTeacherId()).orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
     AcademicPeriod academicPeriod = academicPeriodRepository.findById(request.getPeriodId()).orElseThrow(() -> new RuntimeException("Período no encontrado"));
 
-    Group group = Group.builder()
-    .name(request.getName())
-    .subject(request.getSubject())
-    .teacher(teacher)
-    .period(academicPeriod)
-    .active(true)
-    .build();
-
-    Group saved = groupRepository.save(group);
-
-    return toResponse(saved);
+    Group group = groupRepository.save(Group.builder()
+      .name(request.getName())
+      .subject(request.getSubject())
+      .teacher(teacher)
+      .period(academicPeriod)
+      .active(true)
+      .build()
+    );
+    return toResponse(group);
   }
 
   public GroupResponse findById(Long id) {
@@ -60,13 +57,11 @@ public class GroupService {
 
   public List<GroupResponse> findAll() {
     List<Group> groups = groupRepository.findAll();
-    return groups.stream()
-      .map(this::toResponse).collect(Collectors.toList());
+    return groups.stream().map(this::toResponse).collect(Collectors.toList());
   }
 
   public GroupResponse update(Long id, GroupRequest request) {
     Group group = groupRepository.findById(id).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-
     Teacher teacher = teacherRepository.findById(request.getTeacherId()).orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
     AcademicPeriod academicPeriod = academicPeriodRepository.findById(request.getPeriodId()).orElseThrow(() -> new RuntimeException("Período no encontrado"));
 
@@ -74,26 +69,7 @@ public class GroupService {
     group.setSubject(request.getSubject());
     group.setTeacher(teacher);
     group.setPeriod(academicPeriod);
-
-    Group update = groupRepository.save(group);
-
-    return GroupResponse.builder()
-      .id(update.getId())
-      .name(update.getName())
-      .subject(update.getSubject())
-      .teacher(TeacherSummary.builder()
-        .id(update.getTeacher().getId())
-        .firstName(update.getTeacher().getFirstName())
-        .lastName(update.getTeacher().getLastName())
-        .build()
-      )
-      .period(PeriodSummary.builder()
-        .id(update.getPeriod().getId())
-        .name(update.getPeriod().getName())
-        .build()
-      )
-      .active(update.getActive())
-      .build();
+    return toResponse(groupRepository.save(group))
   }
 
   public void delete(Long id) {
@@ -103,9 +79,6 @@ public class GroupService {
   }
 
   public List<GroupResponse> findByPeriod(Long periodId) {
-    return groupRepository.findByPeriodId(periodId)
-      .stream()
-      .map(this::toResponse)
-      .collect(Collectors.toList());
+    return groupRepository.findByPeriodId(periodId).stream().map(this::toResponse).collect(Collectors.toList());
   }
 }
