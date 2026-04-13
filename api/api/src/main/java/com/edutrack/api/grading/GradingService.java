@@ -45,10 +45,6 @@ public class GradingService {
 
   @Transactional
   public GradingSchemeResponse create(GradingSchemeRequest request) {
-    if (request.getComponents() == null || request.getComponents().isEmpty()) {
-      throw new RuntimeException("Debe incluir al menos un componente");
-    }
-
     Set<ComponentType> types = new HashSet<>();
     for (GradingComponentRequest component : request.getComponents()) {
       if (component.getPercentage().doubleValue() <= 0 || component.getPercentage().doubleValue() > 100) {
@@ -67,24 +63,22 @@ public class GradingService {
 
     Group group = groupRepository.findById(request.getGroupId()).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
 
-    GradingScheme scheme = GradingScheme.builder()
-    .group(group)
-    .active(true)
-    .build();
-
-    GradingScheme saved = gradingSchemeRepository.save(scheme);
+    GradingScheme scheme = gradingSchemeRepository.save(GradingScheme.builder()
+      .group(group)
+      .active(true)
+      .build()
+    );
     
     List<GradingComponent> savedComponents = gradingComponentRepository.saveAll(request.getComponents().stream()
     .map(component -> GradingComponent.builder()
-      .gradingScheme(saved)
+      .gradingScheme(scheme)
       .name(component.getName())
       .percentage(component.getPercentage())
       .type(component.getType())
       .build()
     ).collect(Collectors.toList()));
 
-    return toResponse(saved, savedComponents);
-    
+    return toResponse(scheme, savedComponents);
   }
 
   public GradingSchemeResponse findById(Long id) {
@@ -104,11 +98,7 @@ public class GradingService {
   @Transactional
   public GradingSchemeResponse update(Long id, GradingSchemeRequest request) {
     GradingScheme scheme = gradingSchemeRepository.findById(id).orElseThrow(() -> new RuntimeException("Esquema de calificación no encontrado"));
-
     Group group = groupRepository.findById(request.getGroupId()).orElseThrow(() -> new RuntimeException("Grupo no encontrado"));
-    if (request.getComponents() == null || request.getComponents().isEmpty()) {
-      throw new RuntimeException("Debe incluir al menos un componente");
-    }
 
     Set<ComponentType> types = new HashSet<>();
     for (GradingComponentRequest component : request.getComponents()) {

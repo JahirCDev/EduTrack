@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,7 +21,7 @@ public class GradingController {
 
   @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
-  public GradingSchemeResponse create(@RequestBody GradingSchemeRequest request) {      
+  public GradingSchemeResponse create(@Valid @RequestBody GradingSchemeRequest request) {      
     return gradingService.create(request);
   }
 
@@ -35,7 +37,7 @@ public class GradingController {
 
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("/{id}")
-  public GradingSchemeResponse update(@PathVariable Long id, @RequestBody GradingSchemeRequest request) {      
+  public GradingSchemeResponse update(@Valid @PathVariable Long id, @RequestBody GradingSchemeRequest request) {      
     return gradingService.update(id, request);
   }
 

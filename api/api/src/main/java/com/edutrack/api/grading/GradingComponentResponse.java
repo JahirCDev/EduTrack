@@ -1,9 +1,9 @@
 package com.edutrack.api.grading;
-import lombok.Builder;
+import java.math.BigDecimal;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -15,5 +15,4 @@ public class GradingComponentResponse {
   private String name;
   private BigDecimal percentage;
   private ComponentType type;
-
 }

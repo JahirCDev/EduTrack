@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @Builder
@@ -14,6 +15,6 @@ public class GradingSchemeRequest {
   @NotNull(message = "El grupo es obligatorio")
   private Long groupId;  
 
-  @NotNull(message = "El registro es obligatorio")
+  @NotEmpty(message = "El registro es obligatorio")
   private List<GradingComponentRequest> components;
 }

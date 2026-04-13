@@ -1,10 +1,10 @@
 package com.edutrack.api.grading;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Data
@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GradingComponentRequest {
-
   private Long id;
 
   @NotBlank(message = "El nombre es obligatorio")
@@ -23,5 +22,4 @@ public class GradingComponentRequest {
 
   @NotNull(message = "El tipo de calificacion es obligatorio")
   private ComponentType type;  
-
 }

@@ -39,17 +39,15 @@ public class GradeEntryService {
 
   public GradeEntryResponse create(GradeEntryRequest request){
     Student student = studentRepository.findById(request.getStudentId()).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
-
     GradingComponent gradingComponent = gradingComponentRepository.findById(request.getGradingComponentId()).orElseThrow(() -> new RuntimeException("Tipo de evaluación no encontrada"));
 
-    GradeEntry gradeEntry = GradeEntry.builder()
-    .student(student)
-    .component(gradingComponent)
-    .value(request.getValue())
-    .build();
-
-    GradeEntry saved = gradeEntryRepository.save(gradeEntry);
-    return toResponse(saved);
+    GradeEntry gradeEntry = gradeEntryRepository.save(GradeEntry.builder()
+      .student(student)
+      .component(gradingComponent)
+      .value(request.getValue())
+      .build()
+    );
+    return toResponse(gradeEntry);
   }
 
   public GradeEntryResponse findById(Long id){
@@ -63,19 +61,14 @@ public class GradeEntryService {
   }
 
   public GradeEntryResponse update(Long id, GradeEntryRequest request) {
-    GradeEntry gradeEntry = gradeEntryRepository.findById(id).orElseThrow(() -> new RuntimeException("Calificación no encontrada"));
-    
-    
+    GradeEntry gradeEntry = gradeEntryRepository.findById(id).orElseThrow(() -> new RuntimeException("Calificación no encontrada"));    
     Student student = studentRepository.findById(request.getStudentId()).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
-
     GradingComponent gradingComponent = gradingComponentRepository.findById(request.getGradingComponentId()).orElseThrow(() -> new RuntimeException("Tipo de evaluación no encontrada"));
 
     gradeEntry.setStudent(student);
     gradeEntry.setComponent(gradingComponent);
     gradeEntry.setValue(request.getValue());
-
-    GradeEntry update = gradeEntryRepository.save(gradeEntry);
-    return toResponse(update);
+    return toResponse(gradeEntryRepository.save(gradeEntry));
   }
 
   public void delete(Long id){
