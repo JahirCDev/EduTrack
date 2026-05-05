@@ -69,7 +69,7 @@ public class GroupService {
     group.setSubject(request.getSubject());
     group.setTeacher(teacher);
     group.setPeriod(academicPeriod);
-    return toResponse(groupRepository.save(group))
+    return toResponse(groupRepository.save(group));
   }
 
   public void delete(Long id) {

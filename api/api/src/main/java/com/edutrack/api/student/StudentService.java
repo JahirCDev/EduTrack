@@ -2,10 +2,7 @@ package com.edutrack.api.student;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-<<<<<<< Updated upstream
-=======
 import lombok.RequiredArgsConstructor;
->>>>>>> Stashed changes
 
 @Service
 @RequiredArgsConstructor
