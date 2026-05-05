@@ -13,7 +13,7 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:clave_local_de_desarrollo_minimo_256_bits}
+    secret: ${JWT_SECRET:GfyA0J3ATRphLxXWFnPW2QzigcJ+27xBMhQxkpBPyD7gWQXfHD/1QirOcyJaXLqQLXhaUKxhzvhnKXBO8LrHBgvjWYziMa7kGDZmuB4iplre27OHeuQlgsMrQUHjCRWasrQRsq+cxC0SuGBSM6j+r3A8sDSRCnPCCHr98ds3bPlVn25gEpSDQGclpSnTYEU2cCkwQeH7DZjhLabDsjhGIyN/y1RE+voKZ9szZ88qWIQGbC8Kae96lDoH9ieUaHmmSb1dRJ+SBLfpx2QWY2wJ2duao6afggsHtaKr6Lg/Ck3YtQrrZLAKIge1cEPF9XAHjEOFtv8hJSRfnXRwlYbnkg==}
     access-expiration: 3600000     # 1 hora en ms
     refresh-expiration: 604800000  # 7 días en ms
 
