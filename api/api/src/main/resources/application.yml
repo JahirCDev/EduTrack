@@ -1,14 +1,15 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/edutrack
-    username: ${DB_USER:edutrack_user}
-    password: ${DB_PASS:admin}
+    url: jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
+    username: postgres.frutmhwyvhswxljkgyhi
+    password: strongP#a<>ord
   jpa:
     hibernate:
       ddl-auto: update   # Hibernate crea y actualiza el schema automáticamente
     show-sql: true       # útil durante el desarrollo
     properties:
       hibernate.format_sql: true
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 app:
   jwt:
